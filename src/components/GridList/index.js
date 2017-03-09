@@ -10,8 +10,10 @@ import {
   StyleSheet
 } from 'react-native';
 import { gridify, getDirection} from '@lib/gridifyArray'
+import GalleryCard from '@components/GalleryCard'
+import GalleryCardVertical from '@components/GalleryCardVertical'
 
-export default class MyComponent extends Component {
+export default class VideoGallery extends Component {
 
   static defaultProps = {}
 
@@ -24,7 +26,7 @@ export default class MyComponent extends Component {
     })
 
     this.state = {
-      ds: ds.cloneWithRows(gridify(props.items))
+      ds: ds.cloneWithRows(gridify(props.videos))
     }
 
     this._renderRow = this._renderRow.bind(this)
@@ -32,58 +34,60 @@ export default class MyComponent extends Component {
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      ds: this.state.ds.cloneWithRows(gridify(newProps.items))
+      ds: this.state.ds.cloneWithRows(gridify(newProps.videos))
     });
   }
 
-  _renderRow(rowData, sectionId, i) {
-
+  _renderRow(videoArray, sectionId, i) {
     return (
       <View
         style={{
           flex: 1,
-          height: 100,
-          backgroundColor: 'lightgreen',
+          height: videoArray.length === 1 ? 120 : 160 ,
           flexDirection: 'row'
         }}
       >
         {
-          rowData.map((item, j) => (
-            <View
-              key={j}
-              style={{
-                flex: 1,
-                height: 100,
-                backgroundColor: 'darkorchid',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 30,
-                  fontWeight: 'bold',
-                  color: 'white'
+          videoArray.map((video, j) => {
+            const imagePosition = this._getImagePositionForDirection(getDirection(i, j))
+            const horizontal = videoArray.length === 1
+
+            if (horizontal) {
+              return (
+                <GalleryCard
+                  key={j}
+                  imagePosition={imagePosition}
+                  {...video}
+                />
+              )
+            }
+
+            return (
+              <GalleryCardVertical
+                key={j}
+                imagePosition={imagePosition}
+                {...video}
+                style={j === 0 ? {
+                  marginRight: 5
+                } : {
+                  marginLeft: 5
                 }}
-              >
-                {this._getComponentForDirection(getDirection(i, j))}
-              </Text>
-            </View>
-          ))
+              />
+            )
+          })
         }
       </View>
     )
   }
-  _getComponentForDirection(d) {
-    switch (d) {
+
+  _getImagePositionForDirection(direction) {
+    switch (direction) {
       case 0:
-        return <Text>T</Text>
-      case 1:
-        return <Text>R</Text>
-      case 2:
-        return <Text>B</Text>
       case 3:
-        return <Text>L</Text>
+        return 'start'
+      case 1:
+      case 2:
+        return 'end'
     }
   }
   _renderSeparator(data, sectionId, rowId) {

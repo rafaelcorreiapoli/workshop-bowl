@@ -139,6 +139,4 @@ describe('Directions function', () => {
       [1],    //2
     ]
   })
-
-
 })

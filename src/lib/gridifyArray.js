@@ -14,6 +14,8 @@ export const gridify = (array = []) =>
   }, [])
 
 
+export const START = 0
+export const END = 1
 export const getDirection = (i, j) => {
   // cima = 0
   // direita = 1
@@ -21,16 +23,16 @@ export const getDirection = (i, j) => {
   // esquerda = 3
 
   if  (i === 0 || i % 4 === 0) {
-    return 3
+    return START
   } else if ((i - 2) % 4 === 0) {
-    return 1
+    return END
   } else if ((i - 3) % 4 === 0 && j === 0) {
-    return 0
+    return START
   } else if ((i - 3) % 4 === 0 && j === 1) {
-    return 2
+    return END
   } else if ((i - 1) % 4 === 0 && j === 0) {
-    return 2
+    return END
   } else if ((i - 1) % 4 === 0 && j === 1) {
-    return 0
+    return START
   }
 }

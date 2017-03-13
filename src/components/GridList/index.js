@@ -9,7 +9,7 @@ import {
   ListView,
   StyleSheet
 } from 'react-native';
-import { gridify, getDirection} from '@lib/gridifyArray'
+import { gridify, getDirection, START, END } from '@lib/gridifyArray'
 import GalleryCard from '@components/GalleryCard'
 import GalleryCardVertical from '@components/GalleryCardVertical'
 
@@ -49,7 +49,7 @@ export default class VideoGallery extends Component {
       >
         {
           videoArray.map((video, j) => {
-            const imagePosition = this._getImagePositionForDirection(getDirection(i, j))
+            const imagePosition = getDirection(i, j)
             const horizontal = videoArray.length === 1
 
             if (horizontal) {
@@ -80,16 +80,6 @@ export default class VideoGallery extends Component {
     )
   }
 
-  _getImagePositionForDirection(direction) {
-    switch (direction) {
-      case 0:
-      case 3:
-        return 'start'
-      case 1:
-      case 2:
-        return 'end'
-    }
-  }
   _renderSeparator(data, sectionId, rowId) {
     return (
       <View

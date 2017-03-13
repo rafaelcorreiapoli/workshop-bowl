@@ -1,4 +1,4 @@
-import { gridify, getDirection } from '@lib/gridifyArray'
+import { gridify, getDirection, START, END } from '@lib/gridifyArray'
 
 
 describe('Gridify function', () => {
@@ -86,7 +86,6 @@ describe('Gridify function', () => {
 
 
 
-
 describe('Directions function', () => {
   test('Array with 1 items', () => {
     const array = [
@@ -95,8 +94,9 @@ describe('Directions function', () => {
 
     const value = array.map((arr, i) => arr.map((v, j) => getDirection(i, j)))
     const expected = [
-      [3],
+      [START],
     ]
+    expect(value).toEqual(expected)
   })
 
   test('Array with 2 items', () => {
@@ -107,9 +107,10 @@ describe('Directions function', () => {
 
     const value = array.map((arr, i) => arr.map((v, j) => getDirection(i, j)))
     const expected = [
-      [3],
-      [2]
+      [START],
+      [END]
     ]
+    expect(value).toEqual(expected)
   })
 
   test('Array with 3 items', () => {
@@ -120,9 +121,10 @@ describe('Directions function', () => {
 
     const value = array.map((arr, i) => arr.map((v, j) => getDirection(i, j)))
     const expected = [
-      [3],
-      [2, 0]
+      [START],
+      [END, START]
     ]
+    expect(value).toEqual(expected)
   })
 
   test('Array with 4 items', () => {
@@ -134,9 +136,10 @@ describe('Directions function', () => {
 
     const value = array.map((arr, i) => arr.map((v, j) => getDirection(i, j)))
     const expected = [
-      [3],
-      [2, 0],  //1
-      [1],    //2
+      [START],
+      [END, START],  //1
+      [END],    //2
     ]
+    expect(value).toEqual(expected)
   })
 })

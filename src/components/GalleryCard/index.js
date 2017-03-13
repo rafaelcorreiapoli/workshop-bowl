@@ -12,6 +12,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import CommentsIcon from '@components/CommentsIcon'
 import LikeIcon from '@components/LikeIcon'
+import { START, END } from '@lib/gridifyArray'
 
 export default class GalleryCard extends Component {
 
@@ -39,7 +40,7 @@ export default class GalleryCard extends Component {
       hasLiked,
     } = this.props
 
-    const selectedImageStyle = imagePosition === 'start' ? styles.imageContainerPositionLeft : styles.imageContainerPositionRight
+    const selectedImageStyle = imagePosition === START ? styles.imageContainerPositionLeft : styles.imageContainerPositionRight
 
     const imageElement = (
       <View
@@ -85,8 +86,8 @@ export default class GalleryCard extends Component {
     )
     return (
       <View style={styles.container}>
-        {imagePosition === 'start' ? imageElement : textElement}
-        {imagePosition === 'start' ? textElement : imageElement}
+        {imagePosition === START ? imageElement : textElement}
+        {imagePosition === START ? textElement : imageElement}
       </View>
     );
   }

@@ -46,19 +46,13 @@ export default class GalleryCard extends Component {
       style,
     } = this.props
 
-    const selectedImageStyle = imagePosition === START ? styles.imagePositionTop : styles.imagePositionBottom
-    const imageContainerStyle = [
-      styles.imageContainer,
-      selectedImageStyle
-    ]
-
     const imageElement = (
       <View
-        style={imageContainerStyle}
+        style={styles.imageContainer}
       >
         <Image
           source={{ uri: imageUrl}}
-          style={[ styles.image, selectedImageStyle]}
+          style={styles.image}
           resizeMode={Image.resizeMode.cover}
         />
       </View>
@@ -113,6 +107,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     borderRadius: 10,
+    overflow: 'hidden'
   },
   image: {
     flex: 1,
@@ -120,14 +115,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     overflow: 'hidden'
-  },
-  imagePositionTop: {
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  imagePositionBottom: {
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
   },
   textContainer: {
     flex: 1,

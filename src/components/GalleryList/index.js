@@ -7,9 +7,8 @@ import {
   ListView,
   StyleSheet
 } from 'react-native'
-import { gridify, getDirection } from '@lib/gridifyArray'
-import GalleryCard from '@components/GalleryCard'
-import GalleryCardVertical from '@components/GalleryCardVertical'
+import { gridify } from '@lib/gridifyArray'
+import GalleryCell from '@components/GalleryCell'
 
 export default class VideoGallery extends Component {
 
@@ -40,45 +39,12 @@ export default class VideoGallery extends Component {
     })
   }
 
-  _renderRow(videoArray, sectionId, i) {
-    const containerStyle = {
-      flex: 1,
-      height: videoArray.length === 1 ? 120 : 160,
-      flexDirection: 'row'
-    }
-
+  _renderRow(videoArray, sectionId, rowId) {
     return (
-      <View style={containerStyle}>
-        {
-          videoArray.map((video, j) => {
-            const imagePosition = getDirection(i, j)
-            const horizontal = videoArray.length === 1
-
-            if (horizontal) {
-              return (
-                <GalleryCard
-                  key={j}
-                  imagePosition={imagePosition}
-                  {...video}
-                />
-              )
-            }
-
-            const cardStyle = j === 0
-            ? {marginRight: 5}
-            : { marginLeft: 5 }
-
-            return (
-              <GalleryCardVertical
-                key={j}
-                imagePosition={imagePosition}
-                {...video}
-                style={cardStyle}
-              />
-            )
-          })
-        }
-      </View>
+      <GalleryCell
+        videoArray={videoArray}
+        listIndex={parseInt(rowId, 10)}
+      />
     )
   }
 

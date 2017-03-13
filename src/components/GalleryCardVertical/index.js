@@ -2,7 +2,6 @@ import React, {
   Component,
   PropTypes
 } from 'react'
-
 import {
   View,
   Text,
@@ -12,8 +11,8 @@ import {
 import CommentsIcon from '@components/CommentsIcon'
 import LikeIcon from '@components/LikeIcon'
 import { START } from '@lib/gridifyArray'
-export default class GalleryCard extends Component {
 
+export default class GalleryCard extends Component {
   static defaultProps = {
     likesCount: 0,
     commentsCount: 0,

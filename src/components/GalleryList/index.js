@@ -2,7 +2,6 @@ import React, {
   Component,
   PropTypes,
 } from 'react'
-
 import {
   View,
   ListView,
@@ -14,7 +13,9 @@ import GalleryCardVertical from '@components/GalleryCardVertical'
 
 export default class VideoGallery extends Component {
 
-  static defaultProps = {}
+  static defaultProps = {
+    videos: []
+  }
 
   static propTypes = {
     videos: PropTypes.array
@@ -40,14 +41,14 @@ export default class VideoGallery extends Component {
   }
 
   _renderRow(videoArray, sectionId, i) {
+    const containerStyle = {
+      flex: 1,
+      height: videoArray.length === 1 ? 120 : 160,
+      flexDirection: 'row'
+    }
+
     return (
-      <View
-        style={{
-          flex: 1,
-          height: videoArray.length === 1 ? 120 : 160 ,
-          flexDirection: 'row'
-        }}
-      >
+      <View style={containerStyle}>
         {
           videoArray.map((video, j) => {
             const imagePosition = getDirection(i, j)
@@ -63,16 +64,16 @@ export default class VideoGallery extends Component {
               )
             }
 
+            const cardStyle = j === 0
+            ? {marginRight: 5}
+            : { marginLeft: 5 }
+
             return (
               <GalleryCardVertical
                 key={j}
                 imagePosition={imagePosition}
                 {...video}
-                style={j === 0 ? {
-                  marginRight: 5
-                } : {
-                  marginLeft: 5
-                }}
+                style={cardStyle}
               />
             )
           })
@@ -85,9 +86,7 @@ export default class VideoGallery extends Component {
     return (
       <View
         key={sectionId}
-        style={{
-          height: 10
-        }}
+        style={styles.separator}
       />
     )
   }
@@ -97,10 +96,7 @@ export default class VideoGallery extends Component {
     } = this.state
     return (
       <ListView
-        contentContainerStyle={{
-          marginRight: 10,
-          marginLeft: 10
-        }}
+        contentContainerStyle={styles.contentContainerStyle}
         enableEmptySections
         style={styles.list}
         dataSource={ds}
@@ -115,5 +111,12 @@ export default class VideoGallery extends Component {
 const styles = StyleSheet.create({
   list: {
     flex: 1
+  },
+  contentContainerStyle: {
+    marginRight: 10,
+    marginLeft: 10
+  },
+  separator: {
+    height: 10
   }
 })

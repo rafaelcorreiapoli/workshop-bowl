@@ -1,18 +1,17 @@
 import React, {
   Component,
   PropTypes,
-} from 'react';
+} from 'react'
 
 import {
   View,
   Text,
   StyleSheet,
   Image
-} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons'
+} from 'react-native'
 import CommentsIcon from '@components/CommentsIcon'
 import LikeIcon from '@components/LikeIcon'
-import { START, END } from '@lib/gridifyArray'
+import { START } from '@lib/gridifyArray'
 
 export default class GalleryCard extends Component {
 
@@ -22,11 +21,19 @@ export default class GalleryCard extends Component {
     hasLiked: false
   }
 
-  static propTypes = {}
+  static propTypes = {
+    imageUrl: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    likesCount: PropTypes.number,
+    commentsCount: PropTypes.number,
+    imagePosition: PropTypes.number,
+    hasLiked: PropTypes.bool,
+  }
 
   constructor(props) {
-    super(props);
-    this.state = {};
+    super(props)
+    this.state = {}
   }
 
   render() {
@@ -76,7 +83,7 @@ export default class GalleryCard extends Component {
             </Text>
           </View>
           <View style={styles.iconGroup}>
-            <LikeIcon />
+            <LikeIcon hasLiked={hasLiked}/>
             <Text style={styles.iconNumber}>
               {likesCount}
             </Text>
@@ -89,7 +96,7 @@ export default class GalleryCard extends Component {
         {imagePosition === START ? imageElement : textElement}
         {imagePosition === START ? textElement : imageElement}
       </View>
-    );
+    )
   }
 }
 
@@ -145,7 +152,5 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    // width: 250,
-    // height: 120,
   }
 })

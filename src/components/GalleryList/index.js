@@ -1,15 +1,14 @@
 import React, {
   Component,
   PropTypes,
-} from 'react';
+} from 'react'
 
 import {
   View,
-  Text,
   ListView,
   StyleSheet
-} from 'react-native';
-import { gridify, getDirection, START, END } from '@lib/gridifyArray'
+} from 'react-native'
+import { gridify, getDirection } from '@lib/gridifyArray'
 import GalleryCard from '@components/GalleryCard'
 import GalleryCardVertical from '@components/GalleryCardVertical'
 
@@ -17,7 +16,9 @@ export default class VideoGallery extends Component {
 
   static defaultProps = {}
 
-  static propTypes = {}
+  static propTypes = {
+    videos: PropTypes.array
+  }
 
   constructor(props) {
     super(props)
@@ -35,7 +36,7 @@ export default class VideoGallery extends Component {
   componentWillReceiveProps(newProps) {
     this.setState({
       ds: this.state.ds.cloneWithRows(gridify(newProps.videos))
-    });
+    })
   }
 
   _renderRow(videoArray, sectionId, i) {
@@ -106,7 +107,7 @@ export default class VideoGallery extends Component {
         renderRow={this._renderRow}
         renderSeparator={this._renderSeparator}
       />
-    );
+    )
   }
 
 }
